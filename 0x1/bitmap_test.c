@@ -20,7 +20,7 @@ int bitmap_test(int *i)
 			.pos	= max()-1,
 		},
 		{
-			.name	= "middle value set in the range",
+			.name	= "middle value in the range",
 			.pos	= (min()+max()-1)/2,
 		},
 		{ /* sentry */ },
