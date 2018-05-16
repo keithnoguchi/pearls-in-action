@@ -17,11 +17,11 @@ int bitmap_test(int *i)
 		},
 		{
 			.name	= "max value in the range",
-			.pos	= max()-1,
+			.pos	= max(),
 		},
 		{
 			.name	= "middle value in the range",
-			.pos	= (min()+max()-1)/2,
+			.pos	= (min()+max())/2,
 		},
 		{ /* sentry */ },
 	};
@@ -31,12 +31,12 @@ int bitmap_test(int *i)
 		int j;
 
 		printf("%2d) %-70s", ++(*i), t->name);
-		init();
+		reset();
 		set(t->pos);
 		/* make sure it's set */
 		assert(is_set(t->pos));
 		/* make sure others are not set */
-		for (j = min(); j < max(); j++)
+		for (j = min(); j <= max(); j++)
 			if (j != t->pos)
 				assert(!is_set(j));
 		puts("PASS");

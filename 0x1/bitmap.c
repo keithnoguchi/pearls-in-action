@@ -6,13 +6,13 @@
 #define SHIFT		5
 #define MAX		10000000
 
-static __u32 bitmap[MAX>>SHIFT];
+static __u32 bitmap[(MAX>>SHIFT)+1];
 
-void init(void)
+void reset(void)
 {
 	int i;
 
-	for (i = 0; i < (MAX>>SHIFT); i++)
+	for (i = 0; i < (MAX>>SHIFT)+1; i++)
 		bitmap[i] = 0;
 }
 int min(void)      { return 0; }

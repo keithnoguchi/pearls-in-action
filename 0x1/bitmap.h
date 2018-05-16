@@ -3,11 +3,11 @@
 #ifndef __PEARL_BITMAP_H
 #define __PEARL_BITMAP_H
 
-void init();
+void reset();
 void set(int i);
-void reset(int i);
-int is_set(int i);
-int min();
-int max();
+void unset(int i);
+int  is_set(int i);
+int  min();
+int  max();
 
 #endif /* __PEARL_BITMAP_H */
