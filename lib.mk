@@ -6,7 +6,7 @@ all: $(TARGET)
 check: all
 	$(Q)./$(TARGET)
 clean:
-	$(RM) $(OBJS) $(TARGET)
+	$(Q)$(RM) $(OBJS) $(TARGET)
 $(TARGET): $(OBJS)
 	$(Q)$(CC) $(CFLAGS) -o $@ $^
 %.o: %.c
