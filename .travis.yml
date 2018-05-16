@@ -1,5 +1,5 @@
 ---
-language: go
+language: c
 compiler:
   - gcc
   - clang
@@ -27,7 +27,6 @@ script:
   - |
     if [ "${CI_UBUNTU}"    != "" ]; then
        make
-       cd 0x1/bitmap && go test -v
     fi
   - |
     if [ "${CI_ARCHLINUX}" != "" ]; then
