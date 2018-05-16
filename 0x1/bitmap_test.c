@@ -43,4 +43,5 @@ int main(void)
 				assert(!is_set(i));
 		puts("PASS");
 	}
+	return 0;
 }
