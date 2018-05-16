@@ -5,5 +5,5 @@ TARGETS := 0x1
 
 all check clean:
 	$(Q)for TARGET in $(TARGETS); do  \
-		$(MAKE) TARGET=$$TARGET -C $$TARGET $@; \
+		$(MAKE) TARGET=$${TARGET}_test -C $$TARGET $@; \
 	done

@@ -5,7 +5,7 @@
 
 #include "bitmap.h"
 
-int main(void)
+int bitmap_test(int *i)
 {
 	const struct test {
 		const char	*name;
@@ -26,21 +26,19 @@ int main(void)
 		{ /* sentry */ },
 	};
 	const struct test *t;
-	int j;
 
-	j = 0;
 	for (t = tests; t->name; t++) {
-		int i;
+		int j;
 
-		printf("%2d) %-70s", ++j, t->name);
+		printf("%2d) %-70s", ++(*i), t->name);
 		init();
 		set(t->pos);
 		/* make sure it's set */
 		assert(is_set(t->pos));
 		/* make sure others are not set */
-		for (i = min(); i < max(); i++)
-			if (i != t->pos)
-				assert(!is_set(i));
+		for (j = min(); j < max(); j++)
+			if (j != t->pos)
+				assert(!is_set(j));
 		puts("PASS");
 	}
 	return 0;
