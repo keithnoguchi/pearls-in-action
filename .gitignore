@@ -1,3 +1,4 @@
 **/*.o
 **/*.swp
-0x1/0x1_test
+**/*_test
+0x1/bitmap/bitmap
