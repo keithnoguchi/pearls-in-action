@@ -1,5 +1,5 @@
 ---
-language: c
+language: go
 compiler:
   - gcc
   - clang
@@ -23,10 +23,12 @@ arch:
     - linux-headers
   script:
     - make check clean
+    - cd 0x1/bitmask && go test
 script:
   - |
     if [ "${CI_UBUNTU}"    != "" ]; then
        make
+       cd 0x1/bitmap && go test
     fi
   - |
     if [ "${CI_ARCHLINUX}" != "" ]; then
