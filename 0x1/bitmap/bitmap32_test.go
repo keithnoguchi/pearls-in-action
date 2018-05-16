@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestBitmapSet(t *testing.T) {
+func TestBitmap32Set(t *testing.T) {
 	tests := []struct {
 		name     string
 		capacity uint
