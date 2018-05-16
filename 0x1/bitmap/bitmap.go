@@ -3,12 +3,8 @@ package bitmap
 
 import "fmt"
 
-const (
-	defaultCapacity = 10000000
-	// 64bit based bitmap array/slice.
-	mask  = 0x3f
-	shift = 6
-)
+// default max bitmap to be supported.
+const defaultCapacity = 10000000
 
 // Bitmap is the interface of the bitmap.
 type Bitmap interface {
@@ -31,21 +27,23 @@ type BitmapOpt func(b *bitmapOpt)
 
 // bitmapOpt carries the option values.
 type bitmapOpt struct {
+	shift    uint
+	mask     uint
 	capacity uint
 }
 
 // NewBitmap creates a Bitmap instance.
 func NewBitmap(opts ...BitmapOpt) Bitmap {
-	// Option handling.
-	o := bitmapOpt{capacity: defaultCapacity}
+	// 32bit slice bitmap by default.
+	o := &bitmapOpt{
+		mask:     0x1f,
+		shift:    5,
+		capacity: defaultCapacity,
+	}
 	for _, f := range opts {
-		f(&o)
+		f(o)
 	}
-
-	return &bitmap32{
-		capacity: o.capacity,
-		bitmap:   make([]uint32, (o.capacity>>shift+1)),
-	}
+	return newBitmap32(o)
 }
 
 // WithCap changes the maximum bitmap bit can be handled.
@@ -59,18 +57,29 @@ func WithCap(capacity uint) BitmapOpt {
 
 // bitmap32 is a uint32 slice based bitmap.
 type bitmap32 struct {
+	mask     uint
+	shift    uint
 	capacity uint
 	bitmap   []uint32
 }
 
+func newBitmap32(o *bitmapOpt) Bitmap {
+	return &bitmap32{
+		mask:     o.mask,
+		shift:    o.shift,
+		capacity: o.capacity,
+		bitmap:   make([]uint32, o.capacity>>o.shift+1),
+	}
+}
+
 // Set sets the bit.
-func (b *bitmap32) Set(i uint) { b.bitmap[i>>shift] |= (1<<(i&mask)) }
+func (b *bitmap32) Set(i uint) { b.bitmap[i>>b.shift] |= (1<<(i&b.mask)) }
 
 // Unset unsets the bit.
-func (b *bitmap32) Unset(i uint) { b.bitmap[i>>shift] ^= (1<<(i&mask)) }
+func (b *bitmap32) Unset(i uint) { b.bitmap[i>>b.shift] ^= (1<<(i&b.mask)) }
 
 // IsSet checks the bit.
-func (b *bitmap32) IsSet(i uint) bool { return b.bitmap[i>>shift] & (1<<(i&mask)) != 0 }
+func (b *bitmap32) IsSet(i uint) bool { return b.bitmap[i>>b.shift] & (1<<(i&b.mask)) != 0 }
 
 // Reset resets all the bits.
 func (b *bitmap32) Reset() { for i := range b.bitmap { b.bitmap[i] = 0 } }
