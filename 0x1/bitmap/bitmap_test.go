@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestSet(t *testing.T) {
+func TestBitmapSet(t *testing.T) {
 	tests := []struct {
 		name string
 		max  uint
@@ -32,7 +32,7 @@ func TestSet(t *testing.T) {
 	for _, tc := range tests {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			b := NewBitmap(tc.max)
+			b := NewBitmap([]BitmapOpt{WithMax(tc.max)}...)
 			b.Set(tc.pos)
 			// Check the bits set.
 			if !b.IsSet(tc.pos) {

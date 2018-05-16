@@ -4,9 +4,10 @@ package bitmap
 import "fmt"
 
 const (
-	mask       = 0x1f
-	shift      = 5
 	defaultMax = 10000000
+	// 32bit based bitmap array/slice.
+	mask  = 0x1f
+	shift = 5
 )
 
 // Bitmap is a slice based bitmap.
@@ -16,12 +17,27 @@ type Bitmap struct {
 	bitmap []uint32
 }
 
+// BitmapOpt updates the bitmap options.
+type BitmapOpt func(b *Bitmap)
+
 // NewBitmap creates a Bitmap instance.
-func NewBitmap(max uint) *Bitmap {
-	if max == 0 { max = defaultMax }
-	return &Bitmap{
-		max:    max,
-		bitmap: make([]uint32, (max>>shift)+1),
+func NewBitmap(opts ...BitmapOpt) *Bitmap {
+	b := &Bitmap{max: defaultMax}
+
+	for _, f := range opts {
+		f(b)
+	}
+	b.bitmap = make([]uint32, (b.max>>shift)+1)
+
+	return b
+}
+
+// WithMax changes the maximum bitmap position from the defaultMax constant.
+func WithMax(max uint) BitmapOpt {
+	return func(b *Bitmap) {
+		if max > 0 {
+			b.max = max
+		}
 	}
 }
 
