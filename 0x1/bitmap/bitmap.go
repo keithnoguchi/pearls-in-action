@@ -3,8 +3,10 @@ package bitmap
 
 // default max bitmap to be supported.
 const (
-	defaultBitMask  = 0x1f
-	defaultBitShift = 5
+	bitMask32       = 0x1f
+	bitMask64       = 0x3f
+	bitShift32      = 5
+	bitShift64      = 6
 	defaultCapacity = 10000000
 )
 
@@ -38,21 +40,34 @@ type bitmapOpt struct {
 func NewBitmap(opts ...BitmapOpt) Bitmap {
 	// 32bit slice bitmap by default.
 	o := &bitmapOpt{
-		mask:     defaultBitMask,
-		shift:    defaultBitShift,
+		mask:     bitMask32,
+		shift:    bitShift32,
 		capacity: defaultCapacity,
 	}
 	for _, f := range opts {
 		f(o)
+	}
+
+	// Use 64bit based bitmap.
+	if o.mask == bitMask64 {
+		return newBitmap64(o)
 	}
 	return newBitmap32(o)
 }
 
 // WithCap changes the maximum bitmap bit can be handled.
 func WithCap(capacity uint) BitmapOpt {
-	return func(b *bitmapOpt) {
+	return func(o *bitmapOpt) {
 		if capacity > 0 {
-			b.capacity = capacity
+			o.capacity = capacity
 		}
+	}
+}
+
+// With64 uses uint64 based slice.
+func With64() BitmapOpt {
+	return func(o *bitmapOpt) {
+		o.mask = bitMask64
+		o.shift = bitShift64
 	}
 }
