@@ -5,12 +5,12 @@ CD ?= cd
 GO ?= go
 
 .PHONY: all check go-check clean
-all: $(TARGET)
+all: $(TARGET) $(EXTRA_TARGETS)
 check: all
 	$(Q)./$(TARGET)
 go-check: $(GO_TARGETS)
 clean:
-	$(Q)$(RM) $(OBJS) $(TARGET) $(EXTRA_TARGETS)
+	$(Q)$(RM) $(OBJS) $(TARGET) $(EXTRA_TARGETS) *.o
 $(TARGET): $(OBJS)
 	$(Q)$(CC) $(CFLAGS) -o $@ $^
 %.o: %.c
