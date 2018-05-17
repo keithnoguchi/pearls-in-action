@@ -7,6 +7,11 @@ extern int test_bsearch2(int *i);
 extern int test_bsearch3(int *i);
 extern int test_bsearch10(int *i);
 extern int test_bsearch1024(int *i);
+extern int test_bsearch0_with_try(int *i);
+extern int test_bsearch2_with_try(int *i);
+extern int test_bsearch3_with_try(int *i);
+extern int test_bsearch10_with_try(int *i);
+extern int test_bsearch1024_with_try(int *i);
 
 int main(void)
 {
@@ -26,6 +31,16 @@ int main(void)
 	if (test_bsearch10(&i))
 		fail++;
 	if (test_bsearch1024(&i))
+		fail++;
+	if (test_bsearch0_with_try(&i))
+		fail++;
+	if (test_bsearch2_with_try(&i))
+		fail++;
+	if (test_bsearch3_with_try(&i))
+		fail++;
+	if (test_bsearch10_with_try(&i))
+		fail++;
+	if (test_bsearch1024_with_try(&i))
 		fail++;
 
 	puts("");
