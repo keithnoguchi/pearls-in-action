@@ -5,7 +5,8 @@ TARGETS := 0x1
 TARGETS += 0x2
 TARGETS += 0x4
 
-all check clean:
+.PHONY: all check go-check clean
+all check go-check clean:
 	$(Q)for TARGET in $(TARGETS); do  \
 		$(MAKE) TARGET=$${TARGET}_test -C $$TARGET $@; \
 	done
