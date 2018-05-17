@@ -69,7 +69,7 @@ int rotate_test(int *i)
 
 		input = malloc(t->len);
 		strncpy(input, t->input, t->len);
-		printf("%2d) %-70s", ++(*i), t->name);
+		printf("%2d) %-15s: %-55s", ++(*i), "rotate_test", t->name);
 		got = rotate(input, t->len, t->pos);
 		if (!strcmp(got, t->want)) {
 			puts("PASS");

@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 extern int rotate_test(int *i);
+extern int sign_test(int *i);
 
 int main(void)
 {
@@ -14,6 +15,8 @@ int main(void)
 	printf("===============================\n");
 
 	if (rotate_test(&i))
+		fail++;
+	if (sign_test(&i))
 		fail++;
 
 	puts("");
