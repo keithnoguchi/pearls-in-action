@@ -23,7 +23,7 @@ func TestBitmap64Set(t *testing.T) {
 		{
 			name: fmt.Sprintf("set and check the middle(%d) bit",
 				(0+10000000)/2),
-			pos:  (0+10000000)/2,
+			pos: (0 + 10000000) / 2,
 		},
 	}
 

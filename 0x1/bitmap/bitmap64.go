@@ -21,16 +21,20 @@ func newBitmap64(o *bitmapOpt) Bitmap {
 }
 
 // Set sets the bit.
-func (b *bitmap64) Set(i uint) { b.bitmap[i>>b.shift] |= (1<<(i&b.mask)) }
+func (b *bitmap64) Set(i uint) { b.bitmap[i>>b.shift] |= (1 << (i & b.mask)) }
 
 // Unset unsets the bit.
-func (b *bitmap64) Unset(i uint) { b.bitmap[i>>b.shift] ^= (1<<(i&b.mask)) }
+func (b *bitmap64) Unset(i uint) { b.bitmap[i>>b.shift] ^= (1 << (i & b.mask)) }
 
 // IsSet checks the bit.
-func (b *bitmap64) IsSet(i uint) bool { return b.bitmap[i>>b.shift] & (1<<(i&b.mask)) != 0 }
+func (b *bitmap64) IsSet(i uint) bool { return b.bitmap[i>>b.shift]&(1<<(i&b.mask)) != 0 }
 
 // Reset resets all the bits.
-func (b *bitmap64) Reset() { for i := range b.bitmap { b.bitmap[i] = 0 } }
+func (b *bitmap64) Reset() {
+	for i := range b.bitmap {
+		b.bitmap[i] = 0
+	}
+}
 
 // Cap returns the maximum bit handled.
 func (b *bitmap64) Cap() uint { return b.capacity }
