@@ -17,4 +17,4 @@ $(TARGET): $(OBJS)
 	$(Q)$(CC) $(CFLAGS) -c $<
 .PHONY: $(GO_TARGETS)
 $(GO_TARGETS):
-	$(CD) ./$@ && $(GO) fmt && $(GO) test -v
+	$(Q)$(CD) ./$@ && $(GO) fmt && $(GO) test -v
