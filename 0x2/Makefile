@@ -7,6 +7,9 @@ include ../lib.mk
 
 # Extra targets.
 EXTRA_TARGETS := sig
+EXTRA_TARGETS += squash
 all: $(EXTRA_TARGETS)
 sig: sign.o sign_main.o
+	$(CC) -o $@ $^
+squash: squash_main.o
 	$(CC) -o $@ $^
