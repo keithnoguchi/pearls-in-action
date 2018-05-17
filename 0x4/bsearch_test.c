@@ -249,3 +249,87 @@ int test_bsearch10(int *i)
 	}
 	return fail;
 }
+
+static void generate_array(int array[], int n, int x)
+{
+	int i;
+	for (i = 0; i < n; i++)
+		array[i] = i*x;
+}
+
+int test_bsearch1024(int *i)
+{
+	const struct test {
+		const char	*name;
+		int		multi;
+		int		value;
+		int		want;
+	} tests[] = {
+		{
+			.name	= "first entry",
+			.multi	= 1,
+			.value	= 0,
+			.want	= 0,
+		},
+		{
+			.name	= "last entry",
+			.multi	= 1,
+			.value	= 1023,
+			.want	= 1023,
+		},
+		{
+			.name	= "middle entry",
+			.multi	= 1,
+			.value	= 511,
+			.want	= 511,
+		},
+		{
+			.name	= "no entry",
+			.multi	= 1,
+			.value	= 1024,
+			.want	= -1,
+		},
+		{
+			.name	= "first entry",
+			.multi	= 2,
+			.value	= 0,
+			.want	= 0,
+		},
+		{
+			.name	= "last entry",
+			.multi	= 2,
+			.value	= 2046,
+			.want	= 1023,
+		},
+		{
+			.name	= "middle entry",
+			.multi	= 2,
+			.value	= 1022,
+			.want	= 511,
+		},
+		{
+			.name	= "no entry",
+			.multi	= 2,
+			.value	= 2048,
+			.want	= -1,
+		},
+		{ /* sentry */ },
+	};
+	const struct test *t;
+	int fail = 0;
+	int array[1024];
+
+	for (t = tests; t->name; t++) {
+		int got;
+
+		generate_array(array, 1024, t->multi);
+		printf("%2d) %-15s: %-55s", ++(*i), "bsearch10_test", t->name);
+		got = bsearch(t->value, array, 1024);
+		if (got != t->want) {
+			printf("FAIL: %d!=%d\n", got, t->want);
+			fail++;
+		} else
+			puts("PASS");
+	}
+	return fail;
+}

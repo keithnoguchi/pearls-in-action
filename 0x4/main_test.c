@@ -6,6 +6,7 @@ extern int test_bsearch0(int *i);
 extern int test_bsearch2(int *i);
 extern int test_bsearch3(int *i);
 extern int test_bsearch10(int *i);
+extern int test_bsearch1024(int *i);
 
 int main(void)
 {
@@ -23,6 +24,8 @@ int main(void)
 	if (test_bsearch3(&i))
 		fail++;
 	if (test_bsearch10(&i))
+		fail++;
+	if (test_bsearch1024(&i))
 		fail++;
 
 	puts("");
