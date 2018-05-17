@@ -11,9 +11,11 @@ int main(void)
 
 	strcpy(oldsig, "");
 	while (scanf("%s %s", sig, word) != EOF) {
-		if (strcmp(oldsig, sig) != 0 && linenum > 0)
-			puts("");
-		strcpy(oldsig, sig);
+		if (strcmp(oldsig, sig)) {
+			if (linenum > 0)
+				puts("");
+			strcpy(oldsig, sig);
+		}
 		linenum++;
 		printf("%s ", word);
 	}

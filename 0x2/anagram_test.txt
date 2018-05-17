@@ -1,6 +1,0 @@
-pans
-pots
-opt
-snap
-stop
-tops
