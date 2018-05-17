@@ -5,5 +5,8 @@ OBJS += rotate.o rotate_test.o
 OBJS += sign.o sign_test.o
 include ../lib.mk
 
+# Extra targets.
+EXTRA_TARGETS := sig
+all: $(EXTRA_TARGETS)
 sig: sign.o sign_main.o
 	$(CC) -o $@ $^
