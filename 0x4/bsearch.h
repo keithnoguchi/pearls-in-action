@@ -5,5 +5,7 @@
 
 int bsearch(int v, const int a[], int n);
 int bsearch_with_try(int v, const int a[], int n, int *try);
+int bsearch_recursive(int v, const int a[], int n);
+int bsearch_recursive_with_try(int v, const int a[], int n, int *try);
 
 #endif /* _PEARLS_BSEARCH */
