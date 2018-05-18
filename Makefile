@@ -4,6 +4,7 @@ Q := @
 TARGETS := 0x1
 TARGETS += 0x2
 TARGETS += 0x4
+TARGETS += 0x8
 
 .PHONY: all check go-check clean
 all check go-check clean:
