@@ -2,9 +2,9 @@
 
 #include <stdio.h>
 
-#include "scan.h"
+#include "bisect.h"
 
-int test_max_subtree_n(int *i)
+int test_max_subtree_logn(int *i)
 {
 	const struct test {
 		const char	*name;
@@ -24,8 +24,8 @@ int test_max_subtree_n(int *i)
 	for (t = tests; t->name; t++) {
 		int got;
 
-		printf("%3d) %-25s: %-45s", ++(*i), "test_max_subtree_n", t->name);
-		got = max_subtree_n(t->array, 10);
+		printf("%3d) %-25s: %-45s", ++(*i), "test_max_subtree_logn", t->name);
+		got = max_subtree_logn(t->array, 10);
 		if (got != t->want) {
 			printf("FAIL, got(%d)!=want(%d)\n", got, t->want);
 			fail++;
