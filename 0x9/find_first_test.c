@@ -56,63 +56,73 @@ int test_find_first_10(int *i)
 {
 	const struct test {
 		const char	*name;
-		const int	x[10];
+		enum dup_type	dup_type;
+		int		dup_count;
 		int		v;
 		int		want;
 	} tests[] = {
 		{
-			.name	= "single entry in the front",
-			.x	= {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-			.v	= 0,
-			.want	= 0,
+			.name		= "single entry in the front",
+			.dup_type	= DUPLICATE_FRONT,
+			.dup_count	= 1,
+			.v		= 0,
+			.want		= 0,
 		},
 		{
-			.name	= "two entries in the front",
-			.x	= {0, 0, 2, 3, 4, 5, 6, 7, 8, 9},
-			.v	= 0,
-			.want	= 0,
+			.name		= "two entries in the front",
+			.dup_type	= DUPLICATE_FRONT,
+			.dup_count	= 2,
+			.v		= 0,
+			.want		= 0,
 		},
 		{
-			.name	= "three entries in the front",
-			.x	= {0, 0, 0, 3, 4, 5, 6, 7, 8, 9},
-			.v	= 0,
-			.want	= 0,
+			.name		= "three entries in the front",
+			.dup_type	= DUPLICATE_FRONT,
+			.dup_count	= 3,
+			.v		= 0,
+			.want		= 0,
 		},
 		{
 			.name	= "single entry in the back",
-			.x	= {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-			.v	= 9,
-			.want	= 9,
+			.dup_type	= DUPLICATE_BACK,
+			.dup_count	= 1,
+			.v		= 9,
+			.want		= 9,
 		},
 		{
-			.name	= "two entries in the back",
-			.x	= {0, 1, 2, 3, 4, 5, 6, 7, 9, 9},
-			.v	= 9,
-			.want	= 8,
+			.name		= "two entries in the back",
+			.dup_type	= DUPLICATE_BACK,
+			.dup_count	= 2,
+			.v		= 9,
+			.want		= 8,
 		},
 		{
-			.name	= "three entries in the back",
-			.x	= {0, 1, 2, 3, 4, 5, 6, 9, 9, 9},
-			.v	= 9,
-			.want	= 7,
+			.name		= "three entries in the back",
+			.dup_type	= DUPLICATE_BACK,
+			.dup_count	= 3,
+			.v		= 9,
+			.want		= 7,
 		},
 		{
-			.name	= "single entry in the middle",
-			.x	= {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-			.v	= 5,
-			.want	= 5,
+			.name		= "single entry in the middle",
+			.dup_type	= DUPLICATE_MIDDLE,
+			.dup_count	= 1,
+			.v		= 4,
+			.want		= 4,
 		},
 		{
-			.name	= "two entries in the middle",
-			.x	= {0, 1, 2, 3, 4, 5, 5, 7, 8, 9},
-			.v	= 5,
-			.want	= 5,
+			.name		= "two entries in the middle",
+			.dup_type	= DUPLICATE_MIDDLE,
+			.dup_count	= 2,
+			.v		= 4,
+			.want		= 4,
 		},
 		{
-			.name	= "three entries in the middle",
-			.x	= {0, 1, 2, 3, 5, 5, 5, 7, 8, 9},
-			.v	= 5,
-			.want	= 4,
+			.name		= "three entries in the middle",
+			.dup_type	= DUPLICATE_MIDDLE,
+			.dup_count	= 3,
+			.v		= 4,
+			.want		= 3,
 		},
 		{ /* sentinel */ },
 	};
@@ -120,12 +130,15 @@ int test_find_first_10(int *i)
 	int fail = 0;
 
 	for (t = tests; t->name; t++) {
+		int x[10];
 		int got;
 
 		printf("%3d) %-25s: %-45s", ++(*i), "test_find_first_10",
 		       t->name);
 
-		got = find_first(t->v, t->x, 10);
+		generate_array(x, 10, t->dup_type, t->dup_count);
+		dump_array(x, 10);
+		got = find_first(t->v, x, 10);
 		if (got != t->want) {
 			printf("FAIL: got(%d)!=want(%d)\n", got, t->want);
 			fail++;
