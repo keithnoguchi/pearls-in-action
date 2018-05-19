@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 extern int test_find_first_10(int *i);
+extern int test_find_first_1000(int *i);
 
 int main(void)
 {
@@ -14,6 +15,8 @@ int main(void)
 	printf("===============================\n");
 
 	if (test_find_first_10(&i))
+		fail++;
+	if (test_find_first_1000(&i))
 		fail++;
 
 	return fail;
