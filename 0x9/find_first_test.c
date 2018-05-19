@@ -141,7 +141,6 @@ int test_find_first_10(int *i)
 		       t->name);
 
 		generate_array(x, 10, t->dup_pos, t->dup_count);
-		dump_array(x, 10);
 		got = find_first(t->v, x, 10);
 		if (got != t->want) {
 			printf("FAIL: got(%d)!=want(%d)\n", got, t->want);
