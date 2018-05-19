@@ -6,7 +6,8 @@
 
 #undef DEBUG
 
-enum dup_type {
+/* duplicate position */
+enum dup_pos {
 	DUPLICATE_FRONT,
 	DUPLICATE_MIDDLE,
 	DUPLICATE_BACK,
@@ -25,16 +26,17 @@ static void dump_array(const int x[], int n)
 #endif /* DEBUG */
 }
 
-static void generate_array(int x[], int n, enum dup_type t, int count)
+static void generate_array(int x[], int n, enum dup_pos p, int count)
 {
 	int i, value, start;
 
 	for (i = 0; i < n; i++)
 		x[i] = i;
 	if (count == 1)
-		return;
+		goto out;
 
-	switch (t) {
+	/* create duplicate */
+	switch (p) {
 	case DUPLICATE_FRONT:
 		value = x[0];
 		start = 0;
@@ -50,76 +52,78 @@ static void generate_array(int x[], int n, enum dup_type t, int count)
 	}
 	for (i = 0; i < count; i++)
 		x[start+i] = value;
+out:
+	dump_array(x, n);
 }
 
 int test_find_first_10(int *i)
 {
 	const struct test {
 		const char	*name;
-		enum dup_type	dup_type;
+		enum dup_pos	dup_pos;
 		int		dup_count;
 		int		v;
 		int		want;
 	} tests[] = {
 		{
 			.name		= "single entry in the front",
-			.dup_type	= DUPLICATE_FRONT,
+			.dup_pos	= DUPLICATE_FRONT,
 			.dup_count	= 1,
 			.v		= 0,
 			.want		= 0,
 		},
 		{
 			.name		= "two entries in the front",
-			.dup_type	= DUPLICATE_FRONT,
+			.dup_pos	= DUPLICATE_FRONT,
 			.dup_count	= 2,
 			.v		= 0,
 			.want		= 0,
 		},
 		{
 			.name		= "three entries in the front",
-			.dup_type	= DUPLICATE_FRONT,
+			.dup_pos	= DUPLICATE_FRONT,
 			.dup_count	= 3,
 			.v		= 0,
 			.want		= 0,
 		},
 		{
 			.name	= "single entry in the back",
-			.dup_type	= DUPLICATE_BACK,
+			.dup_pos	= DUPLICATE_BACK,
 			.dup_count	= 1,
 			.v		= 9,
 			.want		= 9,
 		},
 		{
 			.name		= "two entries in the back",
-			.dup_type	= DUPLICATE_BACK,
+			.dup_pos	= DUPLICATE_BACK,
 			.dup_count	= 2,
 			.v		= 9,
 			.want		= 8,
 		},
 		{
 			.name		= "three entries in the back",
-			.dup_type	= DUPLICATE_BACK,
+			.dup_pos	= DUPLICATE_BACK,
 			.dup_count	= 3,
 			.v		= 9,
 			.want		= 7,
 		},
 		{
 			.name		= "single entry in the middle",
-			.dup_type	= DUPLICATE_MIDDLE,
+			.dup_pos	= DUPLICATE_MIDDLE,
 			.dup_count	= 1,
 			.v		= 4,
 			.want		= 4,
 		},
 		{
 			.name		= "two entries in the middle",
-			.dup_type	= DUPLICATE_MIDDLE,
+			.dup_pos	= DUPLICATE_MIDDLE,
 			.dup_count	= 2,
 			.v		= 4,
 			.want		= 4,
 		},
 		{
 			.name		= "three entries in the middle",
-			.dup_type	= DUPLICATE_MIDDLE,
+			.dup_pos	= DUPLICATE_MIDDLE,
 			.dup_count	= 3,
 			.v		= 4,
 			.want		= 3,
@@ -136,7 +140,7 @@ int test_find_first_10(int *i)
 		printf("%3d) %-25s: %-45s", ++(*i), "test_find_first_10",
 		       t->name);
 
-		generate_array(x, 10, t->dup_type, t->dup_count);
+		generate_array(x, 10, t->dup_pos, t->dup_count);
 		dump_array(x, 10);
 		got = find_first(t->v, x, 10);
 		if (got != t->want) {
@@ -152,70 +156,70 @@ int test_find_first_1000(int *i)
 {
 	const struct test {
 		const char	*name;
-		enum dup_type	dup_type;
+		enum dup_pos	dup_pos;
 		int		dup_count;
 		int		v;
 		int		want;
 	} tests[] = {
 		{
 			.name		= "single entry in the front",
-			.dup_type	= DUPLICATE_FRONT,
+			.dup_pos	= DUPLICATE_FRONT,
 			.dup_count	= 1,
 			.v		= 0,
 			.want		= 0,
 		},
 		{
 			.name		= "two entries in the front",
-			.dup_type	= DUPLICATE_FRONT,
+			.dup_pos	= DUPLICATE_FRONT,
 			.dup_count	= 2,
 			.v		= 0,
 			.want		= 0,
 		},
 		{
 			.name		= "three entries in the front",
-			.dup_type	= DUPLICATE_FRONT,
+			.dup_pos	= DUPLICATE_FRONT,
 			.dup_count	= 3,
 			.v		= 0,
 			.want		= 0,
 		},
 		{
 			.name	= "single entry in the back",
-			.dup_type	= DUPLICATE_BACK,
+			.dup_pos	= DUPLICATE_BACK,
 			.dup_count	= 1,
 			.v		= 999,
 			.want		= 999,
 		},
 		{
 			.name		= "two entries in the back",
-			.dup_type	= DUPLICATE_BACK,
+			.dup_pos	= DUPLICATE_BACK,
 			.dup_count	= 2,
 			.v		= 999,
 			.want		= 998,
 		},
 		{
 			.name		= "three entries in the back",
-			.dup_type	= DUPLICATE_BACK,
+			.dup_pos	= DUPLICATE_BACK,
 			.dup_count	= 3,
 			.v		= 999,
 			.want		= 997,
 		},
 		{
 			.name		= "single entry in the middle",
-			.dup_type	= DUPLICATE_MIDDLE,
+			.dup_pos	= DUPLICATE_MIDDLE,
 			.dup_count	= 1,
 			.v		= 499,
 			.want		= 499,
 		},
 		{
 			.name		= "two entries in the middle",
-			.dup_type	= DUPLICATE_MIDDLE,
+			.dup_pos	= DUPLICATE_MIDDLE,
 			.dup_count	= 2,
 			.v		= 499,
 			.want		= 499,
 		},
 		{
 			.name		= "three entries in the middle",
-			.dup_type	= DUPLICATE_MIDDLE,
+			.dup_pos	= DUPLICATE_MIDDLE,
 			.dup_count	= 3,
 			.v		= 499,
 			.want		= 498,
@@ -232,8 +236,7 @@ int test_find_first_1000(int *i)
 		printf("%3d) %-25s: %-45s", ++(*i), "test_find_first_1000",
 		       t->name);
 
-		generate_array(x, 1000, t->dup_type, t->dup_count);
-		dump_array(x, 1000);
+		generate_array(x, 1000, t->dup_pos, t->dup_count);
 		got = find_first(t->v, x, 1000);
 		if (got != t->want) {
 			printf("FAIL: got(%d)!=want(%d)\n", got, t->want);
