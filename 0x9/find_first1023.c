@@ -8,7 +8,7 @@ int find_first1023(int t, const int x[], unsigned int nr)
 {
 	int l, i, p;
 
-	assert(0 <= nr && nr < 1024);
+	assert(512 <= nr && nr < 1024);
 
 	i = 512;
 	l = -1;
