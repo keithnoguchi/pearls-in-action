@@ -54,6 +54,101 @@ static void generate_array1023(int x[], unsigned int nr, enum dup_pos p, int cou
 	dump_array1023(x, nr);
 }
 
+int test_find_first1023_512(int *i)
+{
+	const struct test {
+		const char	*name;
+		enum dup_pos	dup_pos;
+		int		dup_count;
+		int		v;
+		int		want;
+	} tests[] = {
+		{
+			.name		= "single entry in the front",
+			.dup_pos	= DUPLICATE_FRONT,
+			.dup_count	= 1,
+			.v		= 0,
+			.want		= 0,
+		},
+		{
+			.name		= "two entries in the front",
+			.dup_pos	= DUPLICATE_FRONT,
+			.dup_count	= 2,
+			.v		= 0,
+			.want		= 0,
+		},
+		{
+			.name		= "three entries in the front",
+			.dup_pos	= DUPLICATE_FRONT,
+			.dup_count	= 3,
+			.v		= 0,
+			.want		= 0,
+		},
+		{
+			.name		= "single entry in the back",
+			.dup_pos	= DUPLICATE_BACK,
+			.dup_count	= 1,
+			.v		= 511,
+			.want		= 511,
+		},
+		{
+			.name		= "two entries in the back",
+			.dup_pos	= DUPLICATE_BACK,
+			.dup_count	= 2,
+			.v		= 511,
+			.want		= 510,
+		},
+		{
+			.name		= "three entries in the back",
+			.dup_pos	= DUPLICATE_BACK,
+			.dup_count	= 3,
+			.v		= 511,
+			.want		= 509,
+		},
+		{
+			.name		= "single entry in the middle",
+			.dup_pos	= DUPLICATE_MIDDLE,
+			.dup_count	= 1,
+			.v		= 255,
+			.want		= 255,
+		},
+		{
+			.name		= "two entries in the middle",
+			.dup_pos	= DUPLICATE_MIDDLE,
+			.dup_count	= 2,
+			.v		= 255,
+			.want		= 255,
+		},
+		{
+			.name		= "three entries in the middle",
+			.dup_pos	= DUPLICATE_MIDDLE,
+			.dup_count	= 3,
+			.v		= 255,
+			.want		= 254,
+		},
+		{ /* sentinel */ },
+	};
+	const struct test *t;
+	int fail = 0;
+
+	for (t = tests; t->name; t++) {
+		int x[512];
+		int got;
+
+		printf("%3d) %-25s: %-45s", ++(*i), "test_find_first1023_512",
+		       t->name);
+
+		generate_array1023(x, 512, t->dup_pos, t->dup_count);
+		got = find_first1023(t->v, x, 512);
+		if (got != t->want) {
+			printf("FAIL: got(%d)!=want(%d)\n", got, t->want);
+			fail++;
+		} else
+			puts("PASS");
+	}
+	return fail;
+}
+
 int test_find_first1023_1000(int *i)
 {
 	const struct test {

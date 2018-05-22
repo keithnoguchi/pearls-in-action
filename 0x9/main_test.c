@@ -5,6 +5,7 @@
 extern int test_find_first_10(int *i);
 extern int test_find_first_1000(int *i);
 extern int test_find_first1000(int *i);
+extern int test_find_first1023_512(int *i);
 extern int test_find_first1023_1000(int *i);
 
 int main(void)
@@ -21,6 +22,8 @@ int main(void)
 	if (test_find_first_1000(&i))
 		fail++;
 	if (test_find_first1000(&i))
+		fail++;
+	if (test_find_first1023_512(&i))
 		fail++;
 	if (test_find_first1023_1000(&i))
 		fail++;

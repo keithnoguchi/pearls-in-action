@@ -1,8 +1,9 @@
 /* SPDX-License-Identifier: GPL-2.0 */
 
 #include <assert.h>
+#include <stdio.h>
 
-/* 0 <= nr < 1024 */
+/* 512 <= nr < 1024 */
 int find_first1023(int t, const int x[], unsigned int nr)
 {
 	int l, i, p;
