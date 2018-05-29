@@ -3,6 +3,8 @@
 #include <stdio.h>
 
 extern int test_isort1(int *i);
+extern int test_isort2(int *i);
+extern int test_isort3(int *i);
 
 int main(void)
 {
@@ -14,6 +16,10 @@ int main(void)
 	printf("==================\n");
 
 	if (test_isort1(&i))
+		fail++;
+	if (test_isort2(&i))
+		fail++;
+	if (test_isort3(&i))
 		fail++;
 
 	return fail;
