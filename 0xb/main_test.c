@@ -5,6 +5,9 @@
 extern int test_isort1(int *i);
 extern int test_isort2(int *i);
 extern int test_isort3(int *i);
+extern int test_isort1_sorted(int *i);
+extern int test_isort2_sorted(int *i);
+extern int test_isort3_sorted(int *i);
 
 int main(void)
 {
@@ -20,6 +23,12 @@ int main(void)
 	if (test_isort2(&i))
 		fail++;
 	if (test_isort3(&i))
+		fail++;
+	if (test_isort1_sorted(&i))
+		fail++;
+	if (test_isort2_sorted(&i))
+		fail++;
+	if (test_isort3_sorted(&i))
 		fail++;
 
 	return fail;
