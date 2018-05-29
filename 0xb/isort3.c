@@ -6,7 +6,7 @@ void isort3(int x[], unsigned int nr)
 
 	for (i = 1; i < nr; i++) {
 		int tmp = x[i];
-		for (j = i; j > 0 && x[j-1] > tmp; j--)
+		for (j = i; j && x[j-1] > tmp; j--)
 			x[j] = x[j-1];
 		x[j] = tmp;
 	}

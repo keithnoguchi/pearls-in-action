@@ -95,28 +95,28 @@ int test_isort2(int *i)
 			.nr	= 2048,
 		},
 		{
-			.name	= "4092 entries",
-			.nr	= 4092,
+			.name	= "4096 entries",
+			.nr	= 4096,
 		},
 		{
-			.name	= "8184 entries",
-			.nr	= 8184,
+			.name	= "8192 entries",
+			.nr	= 8192,
 		},
 		{
-			.name	= "16368 entries",
-			.nr	= 16368,
+			.name	= "16384 entries",
+			.nr	= 16384,
 		},
 		{
-			.name	= "32736 entries",
-			.nr	= 32736,
+			.name	= "32768 entries",
+			.nr	= 32768,
 		},
 		{
-			.name	= "65472 entries",
-			.nr	= 65472,
+			.name	= "65536 entries",
+			.nr	= 65536,
 		},
 		{
-			.name	= "130944 entries",
-			.nr	= 130944,
+			.name	= "131072 entries",
+			.nr	= 131072,
 		},
 		{ /* sentry */ },
 	};
@@ -130,11 +130,7 @@ int test_isort2(int *i)
 		double diff;
 		clock_t c;
 
-#ifndef __FUNCTION__
-#define __FUNCTION__	"test_isort2"
-#endif /* __FUNCTION__ */
-		printf("%3d) %-20s: %-36s", ++(*i), __FUNCTION__,
-		       t->name);
+		printf("%3d) %-20s: %-36s", ++(*i), __FUNCTION__, t->name);
 
 		generate_random_array(x, t->nr);
 		c = clock();

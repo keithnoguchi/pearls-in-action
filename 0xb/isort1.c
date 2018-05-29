@@ -12,6 +12,6 @@ void isort1(int x[], unsigned int nr)
 	unsigned int i, j;
 
 	for (i = 1; i < nr; i++)
-		for (j = i; j > 0 && x[j-1] > x[j]; j--)
+		for (j = i; j && x[j-1] > x[j]; j--)
 			swap(x, j-1, j);
 }

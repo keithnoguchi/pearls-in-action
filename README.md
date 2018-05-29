@@ -33,6 +33,21 @@ make[1]: Leaving directory '/home/kei/git/pearls/0x9'
 air1$
 ```
 
+As demonstrated in chapter 11, here is the comparison between three insertion sorts
+[isort1], [isort2], and [isort3] implementations:
+
+[isort1]: 0xb/isort1.c
+[isort2]: 0xb/isort2.c
+[isort3]: 0xb/isort3.c
+
+```sh
+air1$ make check | grep 131072
+ 16) test_isort1         : 131072 entries                      PASS:  5.488899sec
+ 32) test_isort2         : 131072 entries                      PASS:  5.450684sec
+ 48) test_isort3         : 131072 entries                      PASS:  2.280945sec
+air1$
+```
+
 ### Go
 
 ```sh
