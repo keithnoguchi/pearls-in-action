@@ -12,7 +12,7 @@ static void swap(int x[], unsigned int a, unsigned int b)
 
 static void __qsort(int x[], unsigned int l, unsigned int u)
 {
-	int i, m;
+	unsigned int i, m;
 
 	if (u-l <= 1)
 		return;
@@ -22,9 +22,7 @@ static void __qsort(int x[], unsigned int l, unsigned int u)
 	m = l;
 	for (i = l+1; i < u; i++)
 		if (x[i] < x[l]) {
-			int tmp = x[++m];
-			x[m] = x[i];
-			x[i] = tmp;
+			int tmp = x[++m]; x[m] = x[i]; x[i] = tmp;
 		}
 	swap(x, l, m);
 	__qsort(x, l, m);

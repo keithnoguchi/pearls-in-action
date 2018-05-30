@@ -9,9 +9,7 @@ static void swap(int x[], unsigned int a, unsigned int b)
 
 static void __qsort(int x[], unsigned int l, unsigned int u)
 {
-	unsigned int m;
-	int tmp;
-	int i;
+	unsigned int i, m;
 
 	if (u-l <= 1)
 		return;
@@ -20,12 +18,11 @@ static void __qsort(int x[], unsigned int l, unsigned int u)
 	for (i = l+1; i < u; i++)
 		if (x[i] < x[l]) {
 			/* see how much faster than swap() */
-			tmp = x[++m]; x[m] = x[i]; x[i] = tmp;
+			int tmp = x[++m]; x[m] = x[i]; x[i] = tmp;
 		}
 	swap(x, l, m);
 	__qsort(x, l, m);
 	__qsort(x, m+1, u);
-
 }
 
 void qsort2(int x[], unsigned int nr)
