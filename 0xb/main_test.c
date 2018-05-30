@@ -8,6 +8,12 @@ extern int test_isort3(int *i);
 extern int test_qsort1(int *i);
 extern int test_qsort2(int *i);
 extern int test_qsort3(int *i);
+extern int test_isort1_equal(int *i);
+extern int test_isort2_equal(int *i);
+extern int test_isort3_equal(int *i);
+extern int test_qsort1_equal(int *i);
+extern int test_qsort2_equal(int *i);
+extern int test_qsort3_equal(int *i);
 extern int test_isort1_sorted(int *i);
 extern int test_isort2_sorted(int *i);
 extern int test_isort3_sorted(int *i);
@@ -35,6 +41,18 @@ int main(void)
 	if (test_qsort2(&i))
 		fail++;
 	if (test_qsort3(&i))
+		fail++;
+	if (test_isort1_equal(&i))
+		fail++;
+	if (test_isort2_equal(&i))
+		fail++;
+	if (test_isort3_equal(&i))
+		fail++;
+	if (test_qsort1_equal(&i))
+		fail++;
+	if (test_qsort2_equal(&i))
+		fail++;
+	if (test_qsort3_equal(&i))
 		fail++;
 	if (test_isort1_sorted(&i))
 		fail++;
