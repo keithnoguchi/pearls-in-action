@@ -31,5 +31,6 @@ static void __qsort(int x[], unsigned int l, unsigned int u)
 
 void qsort3(int x[], unsigned int nr)
 {
+	srand(time(0));
 	__qsort(x, 0, nr);
 }
