@@ -2,18 +2,18 @@
 
 #include <stdio.h>
 
-extern int test_isort1(int *i);
-extern int test_isort2(int *i);
-extern int test_isort3(int *i);
-extern int test_qsort1(int *i);
-extern int test_qsort2(int *i);
-extern int test_qsort3(int *i);
-extern int test_isort1_equal(int *i);
-extern int test_isort2_equal(int *i);
-extern int test_isort3_equal(int *i);
-extern int test_qsort1_equal(int *i);
-extern int test_qsort2_equal(int *i);
-extern int test_qsort3_equal(int *i);
+extern int test_isort1_random(int *i);
+extern int test_isort2_random(int *i);
+extern int test_isort3_random(int *i);
+extern int test_qsort1_random(int *i);
+extern int test_qsort2_random(int *i);
+extern int test_qsort3_random(int *i);
+extern int test_isort1_identical(int *i);
+extern int test_isort2_identical(int *i);
+extern int test_isort3_identical(int *i);
+extern int test_qsort1_identical(int *i);
+extern int test_qsort2_identical(int *i);
+extern int test_qsort3_identical(int *i);
 extern int test_isort1_sorted(int *i);
 extern int test_isort2_sorted(int *i);
 extern int test_isort3_sorted(int *i);
@@ -27,32 +27,32 @@ int main(void)
 	int i = 0;
 
 	printf("==================\n");
-	printf("Column 11: Sorting\n");
+	printf("Column 0xb: Sorting\n");
 	printf("==================\n");
 
-	if (test_isort1(&i))
+	if (test_isort1_random(&i))
 		fail++;
-	if (test_isort2(&i))
+	if (test_isort2_random(&i))
 		fail++;
-	if (test_isort3(&i))
+	if (test_isort3_random(&i))
 		fail++;
-	if (test_qsort1(&i))
+	if (test_qsort1_random(&i))
 		fail++;
-	if (test_qsort2(&i))
+	if (test_qsort2_random(&i))
 		fail++;
-	if (test_qsort3(&i))
+	if (test_qsort3_random(&i))
 		fail++;
-	if (test_isort1_equal(&i))
+	if (test_isort1_identical(&i))
 		fail++;
-	if (test_isort2_equal(&i))
+	if (test_isort2_identical(&i))
 		fail++;
-	if (test_isort3_equal(&i))
+	if (test_isort3_identical(&i))
 		fail++;
-	if (test_qsort1_equal(&i))
+	if (test_qsort1_identical(&i))
 		fail++;
-	if (test_qsort2_equal(&i))
+	if (test_qsort2_identical(&i))
 		fail++;
-	if (test_qsort3_equal(&i))
+	if (test_qsort3_identical(&i))
 		fail++;
 	if (test_isort1_sorted(&i))
 		fail++;

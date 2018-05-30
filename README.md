@@ -33,18 +33,38 @@ make[1]: Leaving directory '/home/kei/git/pearls/0x9'
 air1$
 ```
 
-As demonstrated in chapter 11, here is the comparison between three insertion sorts
-[isort1], [isort2], and [isort3] implementations:
+To demonstrate the comparisons among multiple sorting
+algorithms/implementations, `make check -C 0xb` will show the run time
+of each implementations, as shown in [isort1.c], [isort2.c], [isort3.c],
+[qsort1.c], [qsort2.c], and [qsort3.c] files:
 
-[isort1]: 0xb/isort1.c
-[isort2]: 0xb/isort2.c
-[isort3]: 0xb/isort3.c
+[isort1.c]: 0xb/isort1.c
+[isort2.c]: 0xb/isort2.c
+[isort3.c]: 0xb/isort3.c
+[qsort1.c]: 0xb/qsort1.c
+[qsort2.c]: 0xb/qsort2.c
+[qsort3.c]: 0xb/qsort3.c
 
 ```sh
 air1$ make check | grep 131072
- 16) test_isort1         : 131072 entries                      PASS:  5.488899sec
- 32) test_isort2         : 131072 entries                      PASS:  5.450684sec
- 48) test_isort3         : 131072 entries                      PASS:  2.280945sec
+ 16) test_isort1_random   : 131072 entries                     PASS:  5.441844sec
+ 32) test_isort2_random   : 131072 entries                     PASS:  5.482489sec
+ 48) test_isort3_random   : 131072 entries                     PASS:  1.738310sec
+ 64) test_qsort1_random   : 131072 entries                     PASS:  0.008484sec
+ 80) test_qsort2_random   : 131072 entries                     PASS:  0.008297sec
+ 96) test_qsort3_random   : 131072 entries                     PASS:  0.008470sec
+112) test_isort1_identical: 131072 entries                     PASS:  0.000100sec
+128) test_isort2_identical: 131072 entries                     PASS:  0.000083sec
+144) test_isort3_identical: 131072 entries                     PASS:  0.000096sec
+160) test_qsort1_identical: 131072 entries                     PASS:  5.483466sec
+176) test_qsort2_identical: 131072 entries                     PASS:  5.448950sec
+192) test_qsort3_identical: 131072 entries                     PASS:  0.002300sec
+208) test_isort1_sorted   : 131072 entries                     PASS:  0.000119sec
+224) test_isort2_sorted   : 131072 entries                     PASS:  0.000089sec
+240) test_isort3_sorted   : 131072 entries                     PASS:  0.000096sec
+256) test_qsort1_sorted   : 131072 entries                     PASS:  5.486417sec
+272) test_qsort2_sorted   : 131072 entries                     PASS:  5.499130sec
+288) test_qsort3_sorted   : 131072 entries                     PASS:  4.373180sec
 air1$
 ```
 
