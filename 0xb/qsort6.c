@@ -12,22 +12,19 @@ static void swap(int x[], unsigned int a, unsigned int b)
 
 static void __qsort(int x[], unsigned int l, unsigned int u)
 {
-	int i, j, m;
+	int i, j;
 
 	if (u-l <= 1)
 		return;
 
-	m = l+rand()%(u-l);
-	swap(x, l, m);
+	/* pick the random pivot */
+	swap(x, l, l+rand()%(u-l));
 	i = l+1, j = u-1;
 	while (1) {
 		int tmp;
-		while (i < u && x[i] < x[l])
-			i++;
-		while (j > l && x[j] > x[l])
-			j--;
-		if (i >= j)
-			break;
+		while (i < u && x[i] < x[l]) i++;
+		while (j > l && x[j] > x[l]) j--;
+		if (i >= j) break;
 		tmp = x[i];
 		x[i++] = x[j];
 		x[j--] = tmp;

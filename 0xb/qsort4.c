@@ -16,12 +16,9 @@ static void __qsort(int x[], unsigned int l, unsigned int u)
 
 	i = l+1, j = u-1;
 	while (1) {
-		while (i < u && x[i] < x[l])
-			i++;
-		while (j > l && x[j] > x[l])
-			j--;
-		if (i >= j)
-			break;
+		while (i < u && x[i] < x[l]) i++;
+		while (j > l && x[j] > x[l]) j--;
+		if (i >= j) break;
 		swap(x, i++, j--);
 	}
 	swap(x, l, j);
