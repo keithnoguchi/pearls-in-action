@@ -32,7 +32,7 @@ static void __qsort(int x[], unsigned int l, unsigned int u)
 	__qsort(x, j+1, u);
 }
 
-void qsort4(int x[], unsigned int nr)
+void qsort5(int x[], unsigned int nr)
 {
 	__qsort(x, 0, nr);
 }
