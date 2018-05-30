@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <time.h>
 
-#include "qsort5.h"
+#include "qsort6.h"
 
 static void swap(int x[], int a, int b)
 {
@@ -68,7 +68,7 @@ static bool is_sorted(const int x[], int nr)
 	return true;
 }
 
-static int test_qsort5(int *i, const char *func_name,
+static int test_qsort6(int *i, const char *func_name,
 		       void (*generator)(int x[], int nr))
 {
 	const struct test {
@@ -156,7 +156,7 @@ static int test_qsort5(int *i, const char *func_name,
 		generator(x, t->nr);
 
 		c = clock();
-		qsort5(x, t->nr);
+		qsort6(x, t->nr);
 		c = clock() - c;
 		diff = ((double)c/CLOCKS_PER_SEC);
 		if (!is_sorted(x, t->nr)) {
@@ -169,17 +169,17 @@ static int test_qsort5(int *i, const char *func_name,
 	return fail;
 }
 
-int test_qsort5_random(int *i)
+int test_qsort6_random(int *i)
 {
-	return test_qsort5(i, __FUNCTION__, generate_random_array);
+	return test_qsort6(i, __FUNCTION__, generate_random_array);
 }
 
-int test_qsort5_identical(int *i)
+int test_qsort6_identical(int *i)
 {
-	return test_qsort5(i, __FUNCTION__, generate_identical_array);
+	return test_qsort6(i, __FUNCTION__, generate_identical_array);
 }
 
-int test_qsort5_sorted(int *i)
+int test_qsort6_sorted(int *i)
 {
-	return test_qsort5(i, __FUNCTION__, generate_sorted_array);
+	return test_qsort6(i, __FUNCTION__, generate_sorted_array);
 }
