@@ -7,4 +7,5 @@ OBJS += isort2.o isort2_test.o
 OBJS += isort3.o isort3_test.o
 OBJS += qsort1.o qsort1_test.o
 OBJS += qsort2.o qsort2_test.o
+OBJS += qsort3.o qsort3_test.o
 include ../lib.mk
