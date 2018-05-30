@@ -9,6 +9,7 @@ extern int test_qsort1_random(int *i);
 extern int test_qsort2_random(int *i);
 extern int test_qsort3_random(int *i);
 extern int test_qsort4_random(int *i);
+extern int test_qsort5_random(int *i);
 extern int test_isort1_identical(int *i);
 extern int test_isort2_identical(int *i);
 extern int test_isort3_identical(int *i);
@@ -16,6 +17,7 @@ extern int test_qsort1_identical(int *i);
 extern int test_qsort2_identical(int *i);
 extern int test_qsort3_identical(int *i);
 extern int test_qsort4_identical(int *i);
+extern int test_qsort5_identical(int *i);
 extern int test_isort1_sorted(int *i);
 extern int test_isort2_sorted(int *i);
 extern int test_isort3_sorted(int *i);
@@ -23,6 +25,7 @@ extern int test_qsort1_sorted(int *i);
 extern int test_qsort2_sorted(int *i);
 extern int test_qsort3_sorted(int *i);
 extern int test_qsort4_sorted(int *i);
+extern int test_qsort5_sorted(int *i);
 
 int main(void)
 {
@@ -47,6 +50,8 @@ int main(void)
 		fail++;
 	if (test_qsort4_random(&i))
 		fail++;
+	if (test_qsort5_random(&i))
+		fail++;
 	if (test_isort1_identical(&i))
 		fail++;
 	if (test_isort2_identical(&i))
@@ -61,6 +66,8 @@ int main(void)
 		fail++;
 	if (test_qsort4_identical(&i))
 		fail++;
+	if (test_qsort5_identical(&i))
+		fail++;
 	if (test_isort1_sorted(&i))
 		fail++;
 	if (test_isort2_sorted(&i))
@@ -74,6 +81,8 @@ int main(void)
 	if (test_qsort3_sorted(&i))
 		fail++;
 	if (test_qsort4_sorted(&i))
+		fail++;
+	if (test_qsort5_sorted(&i))
 		fail++;
 
 	return fail;
