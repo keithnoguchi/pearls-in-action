@@ -8,6 +8,8 @@
 
 #include "genknuth.h"
 
+static bool debug = false;
+
 static bool is_sorted(int n, const int x[])
 {
 	int i;
@@ -22,9 +24,13 @@ static void dump(int n, const int x[])
 {
 	int i;
 
+	if (!debug)
+		return;
+
 	for (i = 0; i < n; i++) {
-		if ((i&0x7)==0x7) puts("");
-		printf("%8d ", x[i]);
+		printf("%8d", x[i]);
+		if ((i&0x7)==0x7 && i+1 != n)
+			puts("");
 	}
 	puts("");
 }
@@ -52,6 +58,21 @@ int bench_genknuth(int *test_nr)
 			.n	= 1024,
 		},
 		{
+			.name	= "m=4, n=1024",
+			.m	= 4,
+			.n	= 1024,
+		},
+		{
+			.name	= "m=16, n=1024",
+			.m	= 16,
+			.n	= 1024,
+		},
+		{
+			.name	= "m=1024, n=1024",
+			.m	= 1024,
+			.n	= 1024,
+		},
+		{
 			.name	= "m=1, n=4096",
 			.m	= 1,
 			.n	= 4096,
@@ -59,6 +80,21 @@ int bench_genknuth(int *test_nr)
 		{
 			.name	= "m=2, n=4096",
 			.m	= 2,
+			.n	= 4096,
+		},
+		{
+			.name	= "m=4, n=4096",
+			.m	= 4,
+			.n	= 4096,
+		},
+		{
+			.name	= "m=16, n=4096",
+			.m	= 16,
+			.n	= 4096,
+		},
+		{
+			.name	= "m=4096, n=4096",
+			.m	= 4096,
 			.n	= 4096,
 		},
 		{
@@ -72,6 +108,21 @@ int bench_genknuth(int *test_nr)
 			.n	= 8192,
 		},
 		{
+			.name	= "m=4, n=8192",
+			.m	= 4,
+			.n	= 8192,
+		},
+		{
+			.name	= "m=16, n=8192",
+			.m	= 16,
+			.n	= 8192,
+		},
+		{
+			.name	= "m=8192, n=8192",
+			.m	= 8192,
+			.n	= 8192,
+		},
+		{
 			.name	= "m=1, n=16384",
 			.m	= 1,
 			.n	= 16384,
@@ -82,6 +133,21 @@ int bench_genknuth(int *test_nr)
 			.n	= 16384,
 		},
 		{
+			.name	= "m=4, n=16384",
+			.m	= 4,
+			.n	= 16384,
+		},
+		{
+			.name	= "m=16, n=16384",
+			.m	= 16,
+			.n	= 16384,
+		},
+		{
+			.name	= "m=16384, n=16384",
+			.m	= 16384,
+			.n	= 16384,
+		},
+		{
 			.name	= "m=1, n=32768",
 			.m	= 1,
 			.n	= 32768,
@@ -89,6 +155,21 @@ int bench_genknuth(int *test_nr)
 		{
 			.name	= "m=2, n=32768",
 			.m	= 2,
+			.n	= 32768,
+		},
+		{
+			.name	= "m=4, n=32768",
+			.m	= 4,
+			.n	= 32768,
+		},
+		{
+			.name	= "m=16, n=32768",
+			.m	= 16,
+			.n	= 32768,
+		},
+		{
+			.name	= "m=32768, n=32768",
+			.m	= 32768,
 			.n	= 32768,
 		},
 		{ /* sentinel */ },
