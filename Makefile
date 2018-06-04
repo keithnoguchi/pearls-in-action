@@ -7,6 +7,7 @@ TARGETS += 0x4
 TARGETS += 0x8
 TARGETS += 0x9
 TARGETS += 0xb
+TARGETS += 0xc
 
 .PHONY: all check go-check clean
 all check go-check clean:
