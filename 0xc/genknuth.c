@@ -8,10 +8,10 @@ void genknuth(int m, int n, int x[])
 {
 	int i, j;
 
-	srand(time(0));
+	srandom(time(0));
 
 	j = 0;
 	for (i = 0; i < n; i++)
-		if (rand()%(n-i) < (m-j))
+		if (random()%(n-i) < (m-j))
 			x[j++] = i;
 }
