@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 extern int test_genknuth(int *i);
+extern int bench_genknuth(int *i);
 
 int main(void)
 {
@@ -13,6 +14,8 @@ int main(void)
 	printf("============================\n");
 
 	if (test_genknuth(&i))
+		fail++;
+	if (bench_genknuth(&i))
 		fail++;
 
 	return fail;
