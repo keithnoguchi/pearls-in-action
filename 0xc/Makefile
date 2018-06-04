@@ -2,4 +2,5 @@
 TARGET ?= $(shell basename $(shell pwd))_test
 CFLAGS += -O2
 OBJS := main_test.o
+OBJS += genknuth.o genknuth_test.o
 include ../lib.mk
