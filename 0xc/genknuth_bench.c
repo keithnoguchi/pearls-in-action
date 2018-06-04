@@ -8,7 +8,7 @@
 
 #include "genknuth.h"
 
-static bool is_sorted(int n, int x[])
+static bool is_sorted(int n, const int x[])
 {
 	int i;
 
@@ -16,6 +16,17 @@ static bool is_sorted(int n, int x[])
 		if (x[i-1] >= x[i])
 			return false;
 	return true;
+}
+
+static void dump(int n, const int x[])
+{
+	int i;
+
+	for (i = 0; i < n; i++) {
+		if ((i&0x7)==0x7) puts("");
+		printf("%8d ", x[i]);
+	}
+	puts("");
 }
 
 int bench_genknuth(int *test_nr)
@@ -103,14 +114,26 @@ int bench_genknuth(int *test_nr)
 		genknuth(t->m, t->n, got);
 		c = clock()-c;
 		diff = ((double)c/CLOCKS_PER_SEC);
+		if (got[0] < 0) {
+			printf("FAIL: invalid min(%d<0): %9.6fsec\n",
+			       got[0], diff);
+			goto fail;
+		}
+		if (got[t->m-1] >= t->n) {
+			printf("FAIL: invalid max(%d>=%d): %9.6fsec\n",
+			       got[t->m-1], t->n, diff);
+			goto fail;
+		}
 		if (!is_sorted(t->m, got)) {
 			printf("FAIL: not sorted: %9.6fsec\n", diff);
 			goto fail;
 		}
-		free(got);
 		printf("PASS: %9.6fsec\n", diff);
+		dump(t->m, got);
+		free(got);
 		continue;
 fail:
+		dump(t->m, got);
 		free(got);
 		fail++;
 	}
