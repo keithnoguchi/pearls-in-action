@@ -44,11 +44,11 @@ static int insert(struct set *b, int x)
 
 	/* ignore duplicate */
 	if (s->x[i] == x)
-		return -2;
+		return -1;
 
 	/* array is full */
 	if (s->n+1 == s->alloc)
-		return -1;
+		return -2;
 
 	/* shift array */
 	for (j = s->n+1; j > i; j--)
@@ -56,7 +56,7 @@ static int insert(struct set *b, int x)
 
 	/* put the value */
 	s->x[i] = x;
-	s->n += 1;
+	s->n++;
 
 	return i;
 }
