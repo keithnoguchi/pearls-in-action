@@ -59,6 +59,7 @@ static void report(const struct set *b, int x[])
 
 	for (i = 0; i < s->n; i++)
 		x[i] = s->x[i];
+	x[i] = s->x[i]; /* copy sentinel */
 }
 
 static const struct set set = {

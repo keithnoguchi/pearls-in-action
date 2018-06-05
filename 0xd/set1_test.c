@@ -162,9 +162,9 @@ static int test_set1_insert(int *test_nr)
 			       set_size(s), t->nr, diff);
 			goto fail;
 		}
-		got = malloc(sizeof(int)*t->nr);
+		got = malloc(sizeof(int)*(t->nr+1)); /* +1 for sentinel */
 		set_report(s, got);
-		for (i = 0; i < t->nr; i++)
+		for (i = 0; got[i] != t->max; i++)
 			if (got[i] != t->want[i]) {
 				printf("FAIL: got[%d](%d)!=want[%d](%d): %9.6fsec\n",
 				       i, got[i], i, t->want[i], diff);
