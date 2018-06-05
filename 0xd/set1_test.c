@@ -28,7 +28,7 @@ int test_set1(int *test_nr)
 	int fail = 0;
 
 	for (t = tests; t->name; t++) {
-		struct set *s = NULL;
+		struct set *s;
 
 		printf("%3d) %-21s: %-35s", ++(*test_nr), __FUNCTION__,
 		       t->name);

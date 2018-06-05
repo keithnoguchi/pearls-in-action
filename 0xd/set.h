@@ -7,14 +7,12 @@
 
 /* generic set type */
 struct set {
-	const struct set_ops	*ops;
+	void (*free)(struct set *s);
 };
-#define container_of(_p, _t, _m) (_t *)((char *)(_p)-offsetof(_t, _m))
+static inline void free_set(struct set *s) { s->free(s); }
 
-/* set operations */
-struct set_ops {
-	void (*dtor)(struct set *s);
-};
-static inline void free_set(struct set *s) { s->ops->dtor(s); }
+#ifndef container_of
+#define container_of(_p, _t, _m) (_t *)((char *)(_p)-offsetof(_t, _m))
+#endif /* container_of */
 
 #endif /* _PEARLS_SET_H */
