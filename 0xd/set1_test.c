@@ -5,7 +5,7 @@
 
 #include "set1.h"
 
-int test_set1(int *test_nr)
+static int test_set1_alloc(int *test_nr)
 {
 	const struct test {
 		const char	*name;
@@ -21,6 +21,31 @@ int test_set1(int *test_nr)
 			.name	= "nr=1024, max=1024",
 			.nr	= 1024,
 			.max	= 1024,
+		},
+		{
+			.name	= "nr=4096, max=4096",
+			.nr	= 4096,
+			.max	= 4096,
+		},
+		{
+			.name	= "nr=8192, max=8192",
+			.nr	= 8192,
+			.max	= 8192,
+		},
+		{
+			.name	= "nr=16384, max=16384",
+			.nr	= 16384,
+			.max	= 16384,
+		},
+		{
+			.name	= "nr=32768, max=32768",
+			.nr	= 32768,
+			.max	= 32768,
+		},
+		{
+			.name	= "nr=1048575, max=1048575",
+			.nr	= 1048575,
+			.max	= 1048575,
 		},
 		{ /* sentinel */ },
 	};
@@ -39,13 +64,72 @@ int test_set1(int *test_nr)
 			       t->nr, t->max, strerror(errno));
 			goto fail;
 		}
-		free_set(s);
+		set_free(s);
 		puts("PASS");
 		continue;
 fail:
 		if (s)
-			free_set(s);
+			set_free(s);
 		fail++;
 	}
+	return fail;
+}
+
+static int test_set1_insert(int *test_nr)
+{
+	const struct test {
+		const char	*name;
+		int		nr;
+		int		max;
+		int		insert[128];
+		int		want[128];
+	} tests[] = {
+		{
+			.name	= "insert([1])",
+			.nr	= 1,
+			.max	= 2,
+			.insert	= {1},
+			.want	= {1},
+		},
+		{ /* sentinel */ },
+	};
+	const struct test *t;
+	int fail = 0;
+
+	for (t = tests; t->name; t++) {
+		struct set *s;
+		int i;
+
+		printf("%3d) %-21s: %-35s", ++(*test_nr), __FUNCTION__,
+		       t->name);
+
+		s = alloc_set1(t->nr, t->max);
+		if (!s) {
+			printf("FAIL: alloc_set1(m=%d,n=%d): %s\n",
+			       t->nr, t->max, strerror(errno));
+			goto fail;
+		}
+		for (i = 0; i < t->nr; i++)
+			set_insert(s, t->insert[i]);
+		set_free(s);
+		puts("PASS");
+		continue;
+fail:
+		if (s)
+			set_free(s);
+		fail++;
+	}
+	return fail;
+}
+
+int test_set1(int *i)
+{
+	int fail = 0;
+
+	if (test_set1_alloc(i))
+		fail++;
+	if (test_set1_insert(i))
+		fail++;
+
 	return fail;
 }

@@ -8,8 +8,10 @@
 /* generic set type */
 struct set {
 	void (*free)(struct set *s);
+	int (*insert)(struct set *s, int v);
 };
-static inline void free_set(struct set *s) { s->free(s); }
+static inline void set_free(struct set *s) { s->free(s); }
+static inline int set_insert(struct set *s, int v) { return s->insert(s, v); }
 
 #ifndef container_of
 #define container_of(_p, _t, _m) (_t *)((char *)(_p)-offsetof(_t, _m))
