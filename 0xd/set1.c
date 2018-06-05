@@ -9,6 +9,7 @@ struct set1 {
 	int		n;
 	int		max;
 	struct set	set;
+	int		alloc;
 	int		x[];
 };
 
@@ -38,8 +39,16 @@ static int insert(struct set *b, int x)
 
 	/* find the position */
 	for (i = 0; s->x[i] != s->max; i++)
-		if (s->x[i] > x)
+		if (s->x[i] >= x)
 			break;
+
+	/* ignore duplicate */
+	if (s->x[i] == x)
+		return -2;
+
+	/* array is full */
+	if (s->n+1 == s->alloc)
+		return -1;
 
 	/* shift array */
 	for (j = s->n+1; j > i; j--)
@@ -82,6 +91,7 @@ struct set *alloc_set1(int nr, int max)
 	s->n = 0;
 	s->max = max;
 	s->set = set;
+	s->alloc = nr+1;
 	for (i = 0; i < nr; i++)
 		s->x[i] = 0;
 	s->x[0] = max; /* sentinel */
