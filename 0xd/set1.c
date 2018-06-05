@@ -18,6 +18,12 @@ static void dtor(struct set *b)
 	free(s);
 }
 
+static size_t size(const struct set *b)
+{
+	struct set1 *s = container_of(b, struct set1, set);
+	return s->n;
+}
+
 static int insert(struct set *b, int x)
 {
 	struct set1 *s = container_of(b, struct set1, set);
@@ -43,6 +49,7 @@ static int insert(struct set *b, int x)
 
 static const struct set set = {
 	.free	= dtor,
+	.size	= size,
 	.insert	= insert,
 };
 

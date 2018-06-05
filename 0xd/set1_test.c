@@ -64,6 +64,10 @@ static int test_set1_alloc(int *test_nr)
 			       t->nr, t->max, strerror(errno));
 			goto fail;
 		}
+		if (set_size(s) != 0) {
+			printf("FAIL: %ld=set_size()!=0\n", set_size(s));
+			goto fail;
+		}
 		set_free(s);
 		puts("PASS");
 		continue;
@@ -111,6 +115,11 @@ static int test_set1_insert(int *test_nr)
 		}
 		for (i = 0; i < t->nr; i++)
 			set_insert(s, t->insert[i]);
+		if (set_size(s) != t->nr) {
+			printf("FAIL: %ld=set_size()!=%d\n",
+			       set_size(s), t->nr);
+			goto fail;
+		}
 		set_free(s);
 		puts("PASS");
 		continue;
