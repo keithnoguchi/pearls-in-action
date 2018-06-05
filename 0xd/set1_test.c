@@ -90,11 +90,39 @@ static int test_set1_insert(int *test_nr)
 		int		want[128];
 	} tests[] = {
 		{
-			.name	= "insert([1])",
+			.name	= "insert([0, 1))",
 			.nr	= 1,
+			.max	= 1,
+			.insert	= {0},
+			.want	= {0},
+		},
+		{
+			.name	= "insert([0, 2))",
+			.nr	= 2,
 			.max	= 2,
-			.insert	= {1},
-			.want	= {1},
+			.insert	= {0, 1},
+			.want	= {0, 1},
+		},
+		{
+			.name	= "insert([0, 2)) reverse",
+			.nr	= 2,
+			.max	= 2,
+			.insert	= {1, 0},
+			.want	= {0, 1},
+		},
+		{
+			.name	= "insert([0, 3))",
+			.nr	= 3,
+			.max	= 3,
+			.insert	= {0, 1, 2},
+			.want	= {0, 1, 2},
+		},
+		{
+			.name	= "insert([0, 3)) reverse",
+			.nr	= 3,
+			.max	= 3,
+			.insert	= {2, 1, 0},
+			.want	= {0, 1, 2},
 		},
 		{ /* sentinel */ },
 	};

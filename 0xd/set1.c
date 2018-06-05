@@ -33,7 +33,7 @@ static int insert(struct set *b, int x)
 
 	/* find the position */
 	for (i = 0; s->x[i] != s->max; i++)
-		if (x > s->x[i])
+		if (s->x[i] > x)
 			break;
 
 	/* shift array */
