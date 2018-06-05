@@ -47,10 +47,20 @@ static int insert(struct set *b, int x)
 	return i;
 }
 
+static void report(const struct set *b, int x[])
+{
+	struct set1 *s = container_of(b, struct set1, set);
+	int i;
+
+	for (i = 0; i < s->n; i++)
+		x[i] = s->x[i];
+}
+
 static const struct set set = {
 	.free	= dtor,
 	.size	= size,
 	.insert	= insert,
+	.report	= report,
 };
 
 /* create m number of set with maxinum number of n */

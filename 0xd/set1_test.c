@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "set1.h"
 
@@ -102,6 +103,7 @@ static int test_set1_insert(int *test_nr)
 
 	for (t = tests; t->name; t++) {
 		struct set *s;
+		int *got = NULL;
 		int i;
 
 		printf("%3d) %-21s: %-35s", ++(*test_nr), __FUNCTION__,
@@ -120,10 +122,21 @@ static int test_set1_insert(int *test_nr)
 			       set_size(s), t->nr);
 			goto fail;
 		}
+		got = malloc(sizeof(int)*t->nr);
+		set_report(s, got);
+		for (i = 0; i < t->nr; i++)
+			if (got[i] != t->want[i]) {
+				printf("FAIL: got[%d](%d)!=want[%d](%d)\n",
+				       i, got[i], i, t->want[i]);
+				goto fail;
+			}
+		free(got);
 		set_free(s);
 		puts("PASS");
 		continue;
 fail:
+		if (got)
+			free(got);
 		if (s)
 			set_free(s);
 		fail++;
