@@ -12,6 +12,11 @@ struct set1 {
 	int		x[];
 };
 
+#ifndef container_of
+#include <stddef.h>
+#define container_of(P, T, M) (T *)((char *)(P)-offsetof(T, M))
+#endif /* container_of */
+
 static void dtor(struct set *b)
 {
 	struct set1 *s = container_of(b, struct set1, set);
