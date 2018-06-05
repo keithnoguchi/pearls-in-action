@@ -152,6 +152,42 @@ static int test_set1_insert(int *test_nr)
 			.insert	= {0, 1, 1, 2, 2, 3},
 			.want	= {0, 1, 2},
 		},
+		{
+			.name	= "insert([0, 10))",
+			.nr	= 10,
+			.max	= 10,
+			.insert	= {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+			.want	= {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+		},
+		{
+			.name	= "revert insert([0, 10))",
+			.nr	= 10,
+			.max	= 10,
+			.insert	= {9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 10},
+			.want	= {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+		},
+		{
+			.name	= "duplicate insert([0, 10))",
+			.nr	= 10,
+			.max	= 10,
+			.insert	= {
+				0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+				0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+				10,
+			},
+			.want	= {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+		},
+		{
+			.name	= "duplicate revert insert([0, 10))",
+			.nr	= 10,
+			.max	= 10,
+			.insert	= {
+				9, 8, 7, 6, 5, 4, 3, 2, 1, 0,
+				9, 8, 7, 6, 5, 4, 3, 2, 1, 0,
+				10,
+			},
+			.want	= {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+		},
 		{ /* sentinel */ },
 	};
 	const struct test *t;
