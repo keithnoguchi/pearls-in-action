@@ -38,11 +38,10 @@ static int insert(struct set *b, int x)
 	assert(x < s->max);
 
 	/* find the position */
-	for (i = 0; s->x[i] != s->max; i++)
-		if (s->x[i] >= x)
-			break;
+	for (i = 0; s->x[i] < x; i++)
+		;
 
-	/* ignore duplicate */
+	/* ignore the duplicate */
 	if (s->x[i] == x)
 		return -1;
 
@@ -88,12 +87,12 @@ struct set *alloc_set1(int nr, int max)
 	if (!s)
 		return NULL;
 
-	s->n = 0;
 	s->max = max;
 	s->set = set;
 	s->alloc = nr+1;
 	for (i = 0; i < nr; i++)
 		s->x[i] = 0;
-	s->x[0] = max; /* sentinel */
+	s->n = 0;	/* n does not incluse the sentinel */
+	s->x[0] = max;	/* sentinel */
 	return &s->set;
 }
