@@ -3,6 +3,7 @@
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "set1.h"
 
@@ -131,6 +132,8 @@ static int test_set1_insert(int *test_nr)
 
 	for (t = tests; t->name; t++) {
 		struct set *s;
+		double diff;
+		clock_t c;
 		int *got = NULL;
 		int i;
 
@@ -143,24 +146,27 @@ static int test_set1_insert(int *test_nr)
 			       t->nr, t->max, strerror(errno));
 			goto fail;
 		}
+		c = clock();
 		for (i = 0; i < t->nr; i++)
 			set_insert(s, t->insert[i]);
+		c = clock()-c;
+		diff = ((double)c/CLOCKS_PER_SEC);
 		if (set_size(s) != t->nr) {
-			printf("FAIL: %ld=set_size()!=%d\n",
-			       set_size(s), t->nr);
+			printf("FAIL: %ld=set_size()!=%d\n: %9.6fsec",
+			       set_size(s), t->nr, diff);
 			goto fail;
 		}
 		got = malloc(sizeof(int)*t->nr);
 		set_report(s, got);
 		for (i = 0; i < t->nr; i++)
 			if (got[i] != t->want[i]) {
-				printf("FAIL: got[%d](%d)!=want[%d](%d)\n",
-				       i, got[i], i, t->want[i]);
+				printf("FAIL: got[%d](%d)!=want[%d](%d): %9.6fsec\n",
+				       i, got[i], i, t->want[i], diff);
 				goto fail;
 			}
 		free(got);
 		set_free(s);
-		puts("PASS");
+		printf("PASS: %9.6fsec\n", diff);
 		continue;
 fail:
 		if (got)
