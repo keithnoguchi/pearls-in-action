@@ -52,6 +52,8 @@ static int test_set1_alloc(int *test_nr)
 		{ /* sentinel */ },
 	};
 	const struct test *t;
+	double diff;
+	clock_t c;
 	int fail = 0;
 
 	for (t = tests; t->name; t++) {
@@ -60,18 +62,22 @@ static int test_set1_alloc(int *test_nr)
 		printf("%3d) %-21s: %-35s", ++(*test_nr), __FUNCTION__,
 		       t->name);
 
+		c = clock();
 		s = alloc_set1(t->nr, t->max);
+		c = clock()-c;
+		diff = (double)c/CLOCKS_PER_SEC;
 		if (!s) {
-			printf("FAIL: alloc_set1(m=%d,n=%d): %s\n",
-			       t->nr, t->max, strerror(errno));
+			printf("FAIL: alloc_set1(m=%d,n=%d): %s: %9.6fsec\n",
+			       t->nr, t->max, strerror(errno), diff);
 			goto fail;
 		}
 		if (set_size(s) != 0) {
-			printf("FAIL: %ld=set_size()!=0\n", set_size(s));
+			printf("FAIL: %ld=set_size()!=0: %9.6fsec\n",
+			       set_size(s), diff);
 			goto fail;
 		}
 		set_free(s);
-		puts("PASS");
+		printf("PASS: %9.6fsec\n", diff);
 		continue;
 fail:
 		if (s)
@@ -150,7 +156,7 @@ static int test_set1_insert(int *test_nr)
 		for (i = 0; i < t->nr; i++)
 			set_insert(s, t->insert[i]);
 		c = clock()-c;
-		diff = ((double)c/CLOCKS_PER_SEC);
+		diff = (double)c/CLOCKS_PER_SEC;
 		if (set_size(s) != t->nr) {
 			printf("FAIL: %ld=set_size()!=%d\n: %9.6fsec",
 			       set_size(s), t->nr, diff);
