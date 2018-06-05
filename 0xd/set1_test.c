@@ -28,7 +28,7 @@ int test_set1(int *test_nr)
 	int fail = 0;
 
 	for (t = tests; t->name; t++) {
-		struct set1 *s = NULL;
+		struct set *s = NULL;
 
 		printf("%3d) %-21s: %-35s", ++(*test_nr), __FUNCTION__,
 		       t->name);
@@ -39,12 +39,12 @@ int test_set1(int *test_nr)
 			       t->nr, t->max, strerror(errno));
 			goto fail;
 		}
-		free_set1(s);
+		free_set(s);
 		puts("PASS");
 		continue;
 fail:
 		if (s)
-			free_set1(s);
+			free_set(s);
 		fail++;
 	}
 	return fail;
