@@ -1,10 +1,12 @@
 # Programming Pearls in Action
 
-[![Build Status]](https://travis-ci.org/keinohguchi/pearls-in-action)
+[![CircleCI]](https://circleci.com/gh/keinohguchi/pearls-in-action)
+[![TravisCI]](https://travis-ci.org/keinohguchi/pearls-in-action)
 
 The amazing book, [Programming Pearls] by [John Bentley], in Action!
 
-[Build Status]: https://travis-ci.org/keinohguchi/pearls-in-action.svg
+[CircleCI]: https://circleci.com/gh/keinohguchi/pearls-in-action.svg?style=svg
+[TravisCI]: https://travis-ci.org/keinohguchi/pearls-in-action.svg
 [Programming Pearls]: https://dl.acm.org/citation.cfm?id=318199
 [John Bentley]: https://dl.acm.org/author_page.cfm?id=81100143310
 
