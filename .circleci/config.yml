@@ -13,5 +13,8 @@ jobs:
           name: Print the Current Time
           command: date
       - run:
+          name: Install required packages
+          command: apt install make
+      - run:
           name: Run make
           command: make
