@@ -6,12 +6,4 @@ jobs:
       - image: gcc
     steps:
       - checkout
-      - run:
-          name: Greeting
-          command: echo Hello, world.
-      - run:
-          name: Print the Current Time
-          command: date
-      - run:
-          name: Run make
-          command: make
+      - run: make check clean
