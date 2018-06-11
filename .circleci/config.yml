@@ -12,3 +12,6 @@ jobs:
       - run:
           name: Print the Current Time
           command: date
+      - run:
+          name: Run make
+          command: make
