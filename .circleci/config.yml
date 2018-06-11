@@ -13,8 +13,5 @@ jobs:
           name: Print the Current Time
           command: date
       - run:
-          name: Setup the build environment
-          command: apt-get install build-essential
-      - run:
           name: Run make
           command: make
